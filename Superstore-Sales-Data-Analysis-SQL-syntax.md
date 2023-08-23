@@ -118,6 +118,19 @@ FROM `single-being-353600.Superstore_Sales_Data.Sales_Data`
 ORDER BY Shipping_Count DESC;
 -- Majority of orders were shipped standard class, 5,859, 60%
 
+/*Correlation between days difference between Ship Date and Order Date*/
+SELECT 
+  CORR(Days_Difference, Sales) AS Corr_Coefficient
+FROM
+(SELECT 
+  Ship_Mode,
+  Ship_Date,
+  Order_Date,
+  EXTRACT( DAY FROM (Ship_Date - Order_Date)) AS Days_Difference,
+  Sales
+FROM `single-being-353600.Superstore_Sales_Data.Sales_Data`);
+-- There is no correlation between the amount of time between order date and shipping date. Indicated in the correlation coeffiienct value -0.01 
+
 -- 5. What was the most profitable year
 /*Year Sales Total*/
 SELECT 
